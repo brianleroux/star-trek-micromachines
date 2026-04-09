@@ -1,0 +1,30 @@
+{
+  "name": "micromachines",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "studio:build": "sanity build",
+    "studio:deploy": "sanity deploy",
+    "site:build": "node site/build.js",
+    "site:serve": "npx serve site/dist"
+  },
+  "dependencies": {
+    "@portabletext/to-html": "^2.0.0",
+    "@sanity/client": "^7.12.0",
+    "@sanity/icons": "^3.5.0",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^3.72.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-is": "^19.2.5",
+    "sanity": "^3.72.0",
+    "serve": "^14.2.6",
+    "styled-components": "^6.4.0"
+  },
+  "devDependencies": {
+    "@sanity/blueprints": "0.15.0",
+    "@types/react": "^19.0.0"
+  }
+}
