@@ -18,6 +18,9 @@ const client = createClient({
 const builder = imageUrlBuilder(client)
 const urlFor = (source) => builder.image(source)
 
+// Base path for GitHub Pages (set via env var, defaults to '/')
+const basePath = process.env.BASE_PATH || '/'
+
 // --- Fetch all data ---
 async function fetchData() {
   const [settings, starships] = await Promise.all([
@@ -90,7 +93,7 @@ function lcarsHead(title) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title}</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="${basePath}style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Chakra+Petch:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -103,7 +106,7 @@ function lcarsHeader(settings) {
     <header class="lcars-header">
       <div class="lcars-elbow lcars-elbow-top-left"></div>
       <div class="lcars-bar lcars-bar-top">
-        <span class="lcars-title"><a href="/">${settings.title || 'Star Trek Micro Machines'}</a></span>
+        <span class="lcars-title"><a href="${basePath}">${settings.title || 'Star Trek Micro Machines'}</a></span>
         <span class="lcars-stardate">STARDATE ${settings.stardatePrefix || '47988.1'}</span>
       </div>
       <div class="lcars-pill lcars-pill-1"></div>
@@ -113,7 +116,7 @@ function lcarsHeader(settings) {
     <div class="lcars-sidebar-layout">
       <nav class="lcars-sidebar">
         <div class="lcars-sidebar-block lcars-bg-gold">DATABASE</div>
-        <a href="/" class="lcars-sidebar-block lcars-bg-lavender">ALL SHIPS</a>
+        <a href="${basePath}" class="lcars-sidebar-block lcars-bg-lavender">ALL SHIPS</a>
         <div class="lcars-sidebar-block lcars-bg-blue">MICRO MACHINES</div>
         <div class="lcars-sidebar-block lcars-bg-peach">SHIP CLASSES</div>
         <div class="lcars-sidebar-spacer"></div>
@@ -131,7 +134,7 @@ function lcarsFooter() {
       <div class="lcars-elbow lcars-elbow-bottom-left"></div>
     </footer>
   </div>
-  <script src="/lcars.js"></script>
+  <script src="${basePath}lcars.js"></script>
 </body>
 </html>`
 }
@@ -171,7 +174,7 @@ function shipCard(ship) {
   const color = affiliationColor(ship.affiliation)
   const slug = ship.slug?.current || ''
   return `
-    <a href="/ships/${slug}/" class="lcars-ship-card" style="--card-accent: ${color}">
+    <a href="${basePath}ships/${slug}/" class="lcars-ship-card" style="--card-accent: ${color}">
       ${imgUrl ? `<div class="lcars-ship-card-image"><img src="${imgUrl}" alt="${ship.image?.alt || ship.name}" loading="lazy" /></div>` : '<div class="lcars-ship-card-image lcars-no-image"></div>'}
       <div class="lcars-ship-card-info">
         <div class="lcars-ship-card-accent"></div>
@@ -216,7 +219,7 @@ function buildShipPage(settings, ship) {
       ${ship.microMachines ? buildMicroMachinesPanel(ship.microMachines) : ''}
 
       <div class="lcars-back-nav">
-        <a href="/" class="lcars-button">← RETURN TO DATABASE</a>
+        <a href="${basePath}" class="lcars-button">← RETURN TO DATABASE</a>
       </div>
     </article>`
 
